@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'audition_info'
+require 'recorder'
+require 'stream_checker'
+require 'recorder_cli'
+
+RecorderCli.new($ARGV)
+while(true) do
+  sleep 2
+end
