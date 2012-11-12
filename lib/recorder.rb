@@ -9,11 +9,11 @@ class Recorder
   def initialize(audition_info)
     debug "Recorder created"
     @recording = false
-    @dir = "/home/exine"
+    @dir = "/home/exine/archive" # Change it to desired and beloved directory of yours
 
     @audition_info = audition_info
-    @filename = audition_info.datetime.strftime("%Y%m%dT%H%M%S%z") + 
-      audition_info.presenter + audition_info.name + ".mp3"
+    @filename = audition_info.datetime.strftime("%Y%m%dT%H%M%S%z") + "_" +
+      audition_info.presenter + "_" + audition_info.name + ".mp3"
   end
 
   def record
