@@ -7,7 +7,10 @@ require 'recorder'
 require 'stream_checker'
 require 'recorder_cli'
 
-RecorderCli.new($ARGV)
-while(true) do
-  sleep 2
+Celluloid.logger.level = Logger::INFO
+
+RecorderCli.new
+
+loop do
+  sleep 3600
 end

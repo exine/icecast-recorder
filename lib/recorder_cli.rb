@@ -2,9 +2,10 @@ class RecorderCli
   include Celluloid
   include Celluloid::Logger
 
-  def initialize(name)
-    info "CLI start"
-    @streamchecker = StreamChecker.new
+  def initialize
+    debug "CLI start"
+    @supervisor = StreamChecker.supervise
+    @streamchecker = @supervisor.actors.first
     run_timer
   end
 
