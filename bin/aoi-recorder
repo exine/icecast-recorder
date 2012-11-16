@@ -9,7 +9,11 @@ require 'recorder_cli'
 
 Celluloid.logger.level = Logger::INFO
 
+begin
 RecorderCli.new
+rescue
+quit
+end
 
 loop do
   sleep 3600
