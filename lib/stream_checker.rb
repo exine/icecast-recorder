@@ -7,40 +7,28 @@ class StreamChecker
   def initialize
     debug "StreamChecker created"
 
-    @running = true
     @audition_info = AuditionInfo.new(nil, nil, nil, nil)
-    @recorder = nil
     @recording = false
   end
 
-  def disable
-    debug "StreamChecker disabled"
-
-    @running = false
-    @recorder.stop
-  end
-
   def check
-    if @running
-      debug "StreamChecker will check audition info..."
+    debug "StreamChecker will check audition info..."
       
-      ai = AuditionInfo.from_xspf
-      debug "AuditionInfo acquired: #{ai.to_s}"
+    ai = AuditionInfo.from_xspf
+    debug "AuditionInfo acquired: #{ai.to_s}"
 
-      if @audition_info.presenter != ai.presenter or @audition_info.name != ai.name
-        @recorder.stop if @recording
-        @recording = false
-        info "New presenter detected: #{ai.presenter}"
-        if recorded_presenter?(ai.presenter)
-          @recorder = Recorder.new(ai)
-          @recorder.record
-          info "Presenter on list, recording started"
-          @recording = true
-        end
-        @audition_info = ai
+    if @audition_info.presenter != ai.presenter or @audition_info.name != ai.name
+      stop_recorder
+      @audition_info = ai
+      
+      info "New presenter detected: #{ai.presenter}"
+      
+      if recorded_presenter?(ai.presenter)
+        start_recorder
+      
+        info "Presenter on list, recording started"
       end
-    else
-      raise "StreamChecker is disabled!"
+    
     end
   end
 
@@ -48,5 +36,16 @@ class StreamChecker
 
   def recorded_presenter?(name)
     ["DJ Burakku", "Kira"].include?(name)
+  end
+
+  def stop_recorder
+    Actor[:recorder].stop if @recording
+    @recording = false
+  end
+
+  def start_recorder
+    Recorder.supervise_as(:recorder, @audition_info)
+    Actor[:recorder].start
+    @recording = true
   end
 end

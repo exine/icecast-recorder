@@ -5,7 +5,11 @@ class AuditionInfo
   attr_accessor :datetime, :presenter, :name, :streamurl
 
   def self.from_xspf(url = "http://streaming.pixelmeal.com:8000/stream")
-    xmlio = open(url + ".xspf")
+    begin
+      xmlio = open(url + ".xspf")
+    rescue
+      xmlio = ""
+    end
 
     data = Hash.new
     xml = Nokogiri::XML(xmlio)

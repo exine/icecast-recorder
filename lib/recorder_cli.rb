@@ -4,8 +4,7 @@ class RecorderCli
 
   def initialize
     debug "CLI start"
-    @supervisor = StreamChecker.supervise
-    @streamchecker = @supervisor.actors.first
+    StreamChecker.supervise_as :checker
     run_timer
   end
 
@@ -14,7 +13,7 @@ class RecorderCli
   def run_timer
     debug "Timer tick"
 
-    @streamchecker.check
+    Actor[:checker].check
     after(10) { run_timer }
   end
 end
