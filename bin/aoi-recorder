@@ -6,8 +6,11 @@ require 'audition_info'
 require 'recorder'
 require 'stream_checker'
 require 'recorder_cli'
+require 'config'
 
-Celluloid.logger.level = Logger::INFO
+Celluloid.logger.level = Logger::DEBUG
+
+$CFG = ConfigParser.parse(ARGV)
 
 RecorderCli.supervise_as :cli
 

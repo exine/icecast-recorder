@@ -9,7 +9,7 @@ class Recorder
   def initialize(audition_info)
     debug "Recorder created"
     @recording = false
-    @dir = "/home/ripper/archive" # Change it to desired and beloved directory of yours
+    @dir = $CFG.directory
 
     @audition_info = audition_info
     @filename = audition_info.datetime.strftime("%Y%m%dT%H%M%S%z") + "_" +

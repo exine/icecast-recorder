@@ -35,7 +35,7 @@ class StreamChecker
   private
 
   def recorded_presenter?(name)
-    ["DJ Burakku", "Kira"].include?(name)
+    $CFG.recorded.include?(name)
   end
 
   def stop_recorder
