@@ -2,7 +2,9 @@ require 'yaml'
 require 'optparse'
 require 'ostruct'
 
+# As name says, it parses the config
 class ConfigParser
+  # Parse it baby!
   def self.parse(args)
 
     @options = OpenStruct.new

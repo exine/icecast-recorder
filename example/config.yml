@@ -1,6 +1,6 @@
 ---
 presenters:
-  - DJ Burakku
-  - Kira
+  - example
 
 directory: /home/ripper/archive
+url: http://streaming.myawesomeradio.com:8000/stream
